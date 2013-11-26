@@ -1,0 +1,30 @@
+body {
+    font-size: 15px;
+}
+
+#form_style input {
+    margin-bottom: 15px;
+}
+
+#grad td {
+    font-size: 0px;
+}
+
+td#normal {
+    font-size: 14px;
+}
+
+#grad input[type=text], #grad input[type=number] {
+    border: 0;
+}
+
+#grad input[type=text]:focus, #grad input[type=number]:focus {
+    border: #999 1px solid;
+    background-color: #F6FFFF;
+    border-radius: 3px;
+}
+
+.update-notification {
+    font-size: 13px;
+    color: #999;
+}

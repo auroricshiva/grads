@@ -3,8 +3,8 @@
 <head>
     <title>Template</title>
     <link rel="stylesheet" href="{{ get_url('static', path='css/style.css') }}">
-    <link rel="stylesheet" href="{{ get_url('static', path='css/table.css') }}">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link rel="stylesheet" href="{{ get_url('static', path='tablesorter/themes/blue/style.css') }}">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="{{ get_url('static', path='tablesorter/jquery-latest.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='tablesorter/jquery.tablesorter.js') }}"></script>
     <script type="text/javascript" src="{{ get_url('static', path='js/scripts.js') }}"></script>
