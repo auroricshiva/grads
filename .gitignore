@@ -1,5 +1,5 @@
 *.db
-*.sqlite
+*.sql*
 *.*~
 jquery-*.js
 static/css/*.gif
