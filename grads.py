@@ -97,7 +97,10 @@ def update2(uid):
 def grad_list():
     conn = sqlite3.connect('grads.db')
     c = conn.cursor()
-    c.execute("SELECT uid FROM grads")
+    try:
+        c.execute("SELECT uid FROM grads")
+    except sqlite3.OperationalError:
+        c.execute("CREATE TABLE grads(status BOOL, uid INTEGER PRIMARY KEY, last char(20), first char(20), full char(40), email char(40))")
     uid_tuple_list = c.fetchall()
     uids = []
     for uid in uid_tuple_list:
