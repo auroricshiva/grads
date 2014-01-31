@@ -1,8 +1,6 @@
 *.db
-*.sqlite
+*.sql*
 *.*~
 jquery-*.js
-static/css/*.gif
-static/css/table.css
 static/tablesorter
 static/list.js

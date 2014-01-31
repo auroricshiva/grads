@@ -1,3 +1,11 @@
+/**
+*  Berkeley Blue: 000 050 098/003a70; California Gold: 253 181 021/fdb515
+*/
+
+html {
+    min-height: 100%;
+}
+
 body {
     font-size: 15px;
 }
@@ -6,25 +14,142 @@ body {
     margin-bottom: 15px;
 }
 
-#grad td {
-    font-size: 0px;
+/*
+*** Table Decoration ***/
+#grad thead tr th {
+    font-size: 14px;
 }
 
-td#normal {
-    font-size: 14px;
+#grad td {
+    font-size: 0px;
+    padding: 0;
+    height: 30px;
 }
 
 #grad input[type=text], #grad input[type=number] {
     border: 0;
+    height: 100%;
+    width: 100%;
 }
 
 #grad input[type=text]:focus, #grad input[type=number]:focus {
-    border: #999 1px solid;
-    background-color: #F6FFFF;
-    border-radius: 3px;
+    background-color: #adf;
+}
+
+.unselectable:hover, .unselectable:focus {
+    cursor: default;
 }
 
 .update-notification {
     font-size: 13px;
-    color: #999;
+    color: #666;
 }
+
+.update-notification-new-grad {
+    font-size: 10px;
+    color: #666;
+    margin-left: 30px;
+}
+
+
+
+/*
+*** New Student Modal Window ***/
+.md-new {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: auto;
+    z-index: 10;
+    visibility: hidden;
+    -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+    transition: all 0.3s;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.md-open {
+    opacity: 1;
+    visibility: visible;
+    -webkit-backface-visibility: visible;
+	-moz-backface-visibility: visible;
+    backface-visibility: visible;
+}
+
+.md-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    opacity: 0;
+    background: rgba(0, 0, 0, .2);
+    transition: all 0.3s;
+}
+
+.md-open ~ .md-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.md-content {
+    position: relative;
+    border-radius: 3px;
+    border: 5px solid #003a70;
+    margin: 0 auto;
+    padding: 5px;
+    background: #fff;
+    color: #333;
+    text-align: left;
+}
+
+.md-content h2 {
+    margin-left: 30px;
+}
+
+.md-content input, .md-content button {
+    margin: 0 0 5px 30px;
+    font-size: 20px;
+    color: #666;
+}
+
+.md-content input[type=text], .md-content input[type=number] {
+    height: 40px;
+    width: 80%;
+    display: block;
+}
+
+/*
+*** Modal Window Effects ***/
+.md-effect-1 .md-content {
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+	-ms-transform: scale(0.7);
+	transform: scale(0.7);
+	opacity: 0;
+    visibility: hidden;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.md-open.md-effect-1 .md-content {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+    visibility: visible;
+}
+
+
+
+
+

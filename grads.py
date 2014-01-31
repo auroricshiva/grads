@@ -10,6 +10,7 @@ BaseTemplate.defaults['get_url'] = app.get_url
 def static(path):
     return static_file(path, root='static')
 
+"""Old method of creating a new student
 @route('/new/<uid>', method='GET')
 def new_item(uid):
     if request.GET.get('save','').strip():
@@ -29,8 +30,26 @@ def new_item(uid):
                  window.location.href="/";</script>' % (full_name, uid)
     else:
         return template('new_grad.tpl', uid=uid)
+"""
+
+@route('/new', method='POST')
+def new_student():
+    uid = request.forms.get('uid')
+    full_name = request.forms.get('full')
+    last_name = request.forms.get('last')
+    email = request.forms.get('email')
+    name_split = full_name.split()
+    first_name = name_split[0]
+    
+    conn = sqlite3.connect('grads.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO grads (status, uid, last, first, full, email) VALUES (?,?,?,?,?,?)", (1, uid, last_name, first_name, full_name, email))
+    conn.commit()
+    c.close()
+    return
 
 
+#Saves all changes at once; save button
 @route('/update', method='POST')
 def update():
     key_list = ['status', 'uid', 'last', 'first', 'full', 'email', 'delete']
@@ -71,11 +90,12 @@ def update():
              window.location.href="/";</script>'
 
 
-@route('/update/<uid>')
+#Asynchronous method of saving users
+@route('/update/<uid>', method='POST')
 def update2(uid):
     key_list = ['status', 'last', 'first', 'full', 'email']
     for key in key_list:
-        values_list = request.query.getall(key)
+        values_list = request.forms.getall(key)
         if key == 'status':
             student_list = [{key: value} for value in values_list]
         else:
@@ -97,7 +117,10 @@ def update2(uid):
 def grad_list():
     conn = sqlite3.connect('grads.db')
     c = conn.cursor()
-    c.execute("SELECT uid FROM grads")
+    try:
+        c.execute("SELECT uid FROM grads")
+    except sqlite3.OperationalError:
+        c.execute("CREATE TABLE grads(status BOOL, uid INTEGER PRIMARY KEY, last char(20), full char(40), email char(40))")
     uid_tuple_list = c.fetchall()
     uids = []
     for uid in uid_tuple_list:
