@@ -4,3 +4,4 @@
 jquery-*.js
 static/tablesorter
 static/list.js
+*.txt
