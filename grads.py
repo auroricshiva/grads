@@ -10,27 +10,6 @@ BaseTemplate.defaults['get_url'] = app.get_url
 def static(path):
     return static_file(path, root='static')
 
-"""Old method of creating a new student
-@route('/new/<uid>', method='GET')
-def new_item(uid):
-    if request.GET.get('save','').strip():
-        full_name = request.GET.get('full', '').strip()
-        first_name = full_name.split()[0]
-        last_name = request.GET.get('last', '').strip()
-        email = request.GET.get('email', '').strip()
-        conn = sqlite3.connect('grads.db')
-        c = conn.cursor()
-
-        c.execute("INSERT INTO grads (full, first, last, email, status, uid) VALUES (?,?,?,?,?,?)", (full_name, first_name, last_name, email, 1, uid))
-
-        conn.commit()
-        c.close()
-
-        return '<script>alert("The new student %s (UID %s) was inserted into the database");\
-                 window.location.href="/";</script>' % (full_name, uid)
-    else:
-        return template('new_grad.tpl', uid=uid)
-"""
 
 @route('/new', method='POST')
 def new_student():
@@ -49,12 +28,18 @@ def new_student():
     return
 
 
-#Saves all changes at once; save button
+# Saves all changes at once; save button
 @route('/update', method='POST')
 def update():
+    # List of the names of the inputs we care to update
     key_list = ['status', 'uid', 'last', 'first', 'full', 'email', 'delete']
+
+    # Retrieve the list of values of all the inputs associated with each key,
+    # then create or add it to a list of dictionaries where each student has
+    # their own dictionary of values
     for key in key_list:
         values_list = request.forms.getall(key)
+        #print(key, values_list, len(values_list))
         if key == 'status':
             student_list = [{key: value} for value in values_list]
         else:
@@ -69,28 +54,12 @@ def update():
         else:
             c.execute("UPDATE grads SET last=?, first=?, full=?, email=?, status=? WHERE uid LIKE ?", (student['last'], student['first'], student['full'], student['email'], student['status'], student['uid']))
     conn.commit()
-
-    """
-    key_values_list = []
-    student_list = []
-    for key in ['status', 'uid', 'last', 'first', 'full', 'email']:
-        key_values_list += [request.forms.getall(key)]
-    print key_values_list
-    i = 0
-    while i < len(key_values_list[0]):
-        student_temp = []
-        for key_items in key_values_list:
-            student_temp.append(key_items[i])
-        student_list.append(student_temp)
-        i += 1
-    print student_list
-    """
         
     return '<script>alert("Saved.");\
              window.location.href="/";</script>'
 
 
-#Asynchronous method of saving users
+# Asynchronous method of saving users
 @route('/update/<uid>', method='POST')
 def update2(uid):
     key_list = ['status', 'last', 'first', 'full', 'email']
@@ -112,6 +81,7 @@ def update2(uid):
     conn.commit()
 
 
+# Loads the main page
 @route('/')
 @route('/grads')
 def grad_list():
@@ -128,7 +98,7 @@ def grad_list():
     c.execute("SELECT status, uid, last, first, full, email FROM grads")
     result = c.fetchall()
     c.close()
-    output = template('grad_table.tpl', rows=result, uids=uids)
+    output = template('templates/grad_table.tpl', rows=result, uids=uids)
     return output
 
 run()

@@ -10,10 +10,6 @@ body {
     font-size: 15px;
 }
 
-#form_style input {
-    margin-bottom: 15px;
-}
-
 /*
 *** Table Decoration ***/
 #grad thead tr th {
@@ -36,7 +32,8 @@ body {
     background-color: #adf;
 }
 
-.unselectable:hover, .unselectable:focus {
+input[readonly], input[readonly]:hover, input[readonly]:focus {
+    background-color: #eee;
     cursor: default;
 }
 
@@ -51,10 +48,44 @@ body {
     margin-left: 30px;
 }
 
+.hide {
+    display: none;
+}
+
+/*** Removes the dotted lines around buttons when clicked ***/
+a:focus, a:active, 
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+    border: 0;
+    outline : 0;
+}
+
+.delete {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    background: url(../images/delete-40x40.png) center no-repeat;
+    background-size: 40px 40px;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    -webkit-transition: -webkit-transform .25s;
+	-moz-transition: -moz-transform .25s;
+	-ms-transition: -ms-transform .25s;
+	-o-transition: -o-transform .25s;
+	transition: transform .25s;
+}
 
 
-/*
-*** New Student Modal Window ***/
+
+/**
+*** Modal Window ***/
 .md-new {
     position: fixed;
     top: 50%;
@@ -126,7 +157,7 @@ body {
     display: block;
 }
 
-/*
+/**
 *** Modal Window Effects ***/
 .md-effect-1 .md-content {
     -webkit-transform: scale(0.7);

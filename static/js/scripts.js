@@ -6,6 +6,9 @@ function loadTable() {
             },
             6: {
                 sorter: false
+            },
+            7: {
+                sorter: false
             }
         }
     });
@@ -78,7 +81,8 @@ function createGrad() {
                         <td><input type='text' id='" + uid + "_first' name='first' value='" + first + "' size='10' maxlength='20' onChange='ajaxUpdate(" + uid + ");'>" + first + "</td> \
                         <td><input type='text' id='" + uid + "_full' name='full' value='" + full + "' maxlength='20' onChange='ajaxUpdate(" + uid + ");'>" + full + "</td> \
                         <td><input type='text' id='" + uid + "_email' name='email' value='" + email + "' size='30' maxlength='50' onChange='ajaxUpdate(" + uid + ");'>" + email + "</td> \
-                        <td><select name='delete'><option value='no' selected>No</option><option value='yes'>Yes</option></select></td> \
+                        <td class='hide'><select name='delete' id='" + uid + "_deleteSelection'><option value='no' selected>No</option><option value='yes'>Yes</option></select></td> \
+                        <td><button type='button' class='delete' id='" + uid + "_delete' onclick='deleteButtonClick(" + uid + ");'/></td> \
                     </tr>");
 
                 closeForm();                
@@ -100,8 +104,8 @@ function createGrad() {
 *  Checks the input values to make sure none are empty.
 */
 function checkInput() {
-    if($('#uid_new').val() == '' || $('#fname_new').val() == '' ||
-            $('lname_new').val() == '' || $('#email_new').val() == '')
+    if($('#uid_new').val() == '' || $('#full_new').val() == '' ||
+            $('last_new').val() == '' || $('#email_new').val() == '')
         return false;
 
     return true;
@@ -116,16 +120,70 @@ function showForm() {
     $('#md-1').addClass('md-open');
     window.setTimeout(function() {
         $('#uid_new').focus();
-    }, 100); //Will not autofocus without the delay.
+    }, 100); //Will not autofocus without the delay. (Due to transition?)
 }
 
 function closeForm() {
     $('#md-1').removeClass('md-open');
+    
+    // Reset input values to ''
     window.setTimeout(function() {
         document.getElementById('uid_new').value = '';
-        document.getElementById('fname_new').value = '';
-        document.getElementById('lname_new').value = '';
+        document.getElementById('full_new').value = '';
+        document.getElementById('last_new').value = '';
         document.getElementById('email_new').value = '';
         $('.update-notification-new-grad').html('');
     }, 100);
 }
+
+
+
+/**
+*  Delete button
+*/
+function deleteButtonClick(uid) {
+    // Disables the inputs and marks the row for deletion
+    $('#' + uid + '_status').attr('readonly', true);
+    $('#' + uid + '_last').attr('readonly', true);
+    $('#' + uid + '_first').attr('readonly', true);
+    $('#' + uid + '_full').attr('readonly', true);
+    $('#' + uid + '_email').attr('readonly', true);
+    
+    // Changes the delete value to 'yes'
+    $('#' + uid + '_deleteSelection').val('yes');
+    
+    // Changes onclick so that the next click reverts the mark of deletion
+    $('#' + uid + '_delete').attr('onclick', 'reenableButtonClick('+ uid + ');');
+    
+    // Rotates this delete button 45 degrees
+    rotate(uid + '_delete', 45);
+}
+
+function reenableButtonClick(uid) {
+    $('#' + uid + '_status').attr('readonly', false);
+    $('#' + uid + '_last').attr('readonly', false);
+    $('#' + uid + '_first').attr('readonly', false);
+    $('#' + uid + '_full').attr('readonly', false);
+    $('#' + uid + '_email').attr('readonly', false);
+    
+    $('#' + uid + '_deleteSelection').val('no');
+    
+    $('#' + uid + '_delete').attr('onclick', 'deleteButtonClick(' + uid + ');');
+
+    rotate(uid + '_delete', 0);
+}
+
+function rotate(id, degree) {
+    $('#' + id).css({'transform': 'rotate(' + degree + 'deg)'});
+    $('#' + id).css({'-ms-transform': 'rotate(' + degree + 'deg)'});
+    $('#' + id).css({'-moz-transform': 'rotate(' + degree + 'deg)'});
+    $('#' + id).css({'-o-transform': 'rotate(' + degree + 'deg)'});
+    $('#' + id).css({'-webkit-transform': 'rotate(' + degree + 'deg)'});
+}
+
+
+
+
+
+
+
