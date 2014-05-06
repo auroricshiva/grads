@@ -66,7 +66,7 @@
     <div class="md-content">
         <h2>Create a new graduate student</h2>
         <form id="create_grad">
-            <input type="number" id="uid_new" name="uid_new" maxlength="20" autocomplete="off" placeholder="UID; 12348765">
+            <input type="text" id="uid_new" name="uid_new" maxlength="20" autocomplete="off" placeholder="UID; 12348765">
             <input type="text" id="full_new" name="full_new" autocomplete="off" placeholder="Full name; John Robert Smith">
             <input type="text" id="last_new" name="last_new" autocomplete="off" placeholder="Last name; Smith">
             <input type="text" id="email_new" name="email_new" autocomplete="off" placeholder="Email; jrsmith@berkeley.edu">
