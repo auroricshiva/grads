@@ -13,3 +13,5 @@ Please make sure that these are installed:
 * tablesorter jQuery plug-in (full-release) by Christian Bach from http://tablesorter.com/docs/
 
 Download and unpack the tablesorter plug-in into a folder named "tablesorter" under the static directory.
+
+Run `python grads.py` to run the application on default localhost:8080.
