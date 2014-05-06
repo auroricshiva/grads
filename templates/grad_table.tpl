@@ -35,8 +35,8 @@
 <tbody>
 % for i, row in enumerate(rows):
     <tr>
-        <td><input type="number" id="{{uids[i]}}_status" name="status" value="{{row[0]}}" size="1" maxlength="1" onChange='ajaxUpdate({{uids[i]}});'>{{row[0]}}</td>
-        <td><input type="number" id="{{uids[i]}}" name="uid" value="{{uids[i]}}" size="10" maxlength="20" readonly="readonly">{{uids[i]}}</td>
+        <td><input type="text" id="{{uids[i]}}_status" name="status" value="{{row[0]}}" size="1" maxlength="1" onChange='ajaxUpdate({{uids[i]}});'>{{row[0]}}</td>
+        <td><input type="text" id="{{uids[i]}}" name="uid" value="{{uids[i]}}" size="10" maxlength="20" readonly="readonly">{{uids[i]}}</td>
         <td><input type="text" id="{{uids[i]}}_last" name="last" value="{{row[2]}}" size="10" maxlength="20" onChange='ajaxUpdate({{uids[i]}});'>{{row[2]}}</td>
         <td><input type="text" id="{{uids[i]}}_first" name="first" value="{{row[3]}}" size="10" maxlength="20" onChange='ajaxUpdate({{uids[i]}});'>{{row[3]}}</td>
         <td><input type="text" id="{{uids[i]}}_full" name="full" value="{{row[4]}}" maxlength="20" onChange='ajaxUpdate({{uids[i]}});'>{{row[4]}}</td>

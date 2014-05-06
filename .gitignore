@@ -1,7 +1,9 @@
 *.db
 *.sql*
 *.*~
+*.pyc
 jquery-*.js
+new_grad.tpl
 static/tablesorter
 static/list.js
 *.txt
